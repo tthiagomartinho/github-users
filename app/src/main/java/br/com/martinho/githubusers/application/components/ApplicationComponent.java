@@ -3,7 +3,7 @@ package br.com.martinho.githubusers.application.components;
 import javax.inject.Singleton;
 
 import br.com.martinho.githubusers.application.modules.ApplicationModule;
-import br.com.martinho.githubusers.screen.activities.listUsers.ListUsersActivity;
+import br.com.martinho.githubusers.screen.base.BaseActivity;
 import dagger.Component;
 
 /**
@@ -17,5 +17,5 @@ import dagger.Component;
         }
 )
 public interface ApplicationComponent {
-    void inject(ListUsersActivity baseActivity);
+    void inject(BaseActivity baseActivity);
 }

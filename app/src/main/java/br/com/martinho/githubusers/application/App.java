@@ -6,7 +6,6 @@ import br.com.martinho.githubusers.application.components.ApplicationComponent;
 import br.com.martinho.githubusers.application.components.DaggerApplicationComponent;
 import br.com.martinho.githubusers.application.components.DaggerPresenterComponent;
 import br.com.martinho.githubusers.application.components.PresenterComponent;
-import br.com.martinho.githubusers.application.modules.ApplicationModule;
 import br.com.martinho.githubusers.application.modules.PresenterModule;
 
 /**
@@ -23,12 +22,10 @@ public class App extends Application {
         super.onCreate();
 
         mPresenterComponent = DaggerPresenterComponent.builder()
-                .applicationModule(new ApplicationModule(this))
                 .presenterModule(new PresenterModule())
                 .build();
 
         applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
                 .build();
     }
 

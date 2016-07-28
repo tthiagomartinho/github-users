@@ -9,7 +9,6 @@ public class ListUsersActivityPresenter extends BaseActivityPresenter implements
 
     private IListUsersActivity listUsersActivity;
 
-
     public ListUsersActivityPresenter(IListUsersActivity listUsersActivity) {
         this.listUsersActivity = listUsersActivity;
         listUsersActivity.retrieveApplication().getPresenterComponent().inject(this);

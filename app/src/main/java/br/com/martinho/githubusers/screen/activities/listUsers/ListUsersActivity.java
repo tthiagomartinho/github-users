@@ -1,22 +1,40 @@
 package br.com.martinho.githubusers.screen.activities.listUsers;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
+
+import javax.inject.Inject;
 
 import br.com.martinho.githubusers.R;
-import br.com.martinho.githubusers.application.App;
-import br.com.martinho.githubusers.screen.activities.listUsers.IListUsersActivity;
+import br.com.martinho.githubusers.screen.base.BaseActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
-public class ListUsersActivity extends AppCompatActivity implements IListUsersActivity {
+public class ListUsersActivity extends BaseActivity implements IListUsersActivity {
+
+    @Inject
+    IListUsersActivityPresenter listUsersActivityPresenter;
+
+    @BindView(R.id.activity_list_users_data)
+    ListView data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_users);
+        ButterKnife.bind(this);
+
+        ListUsersActivityComponent listUsersActivityComponent = DaggerListUsersActivityComponent
+                .builder()
+                .applicationComponent((retrieveApplication()).getApplicationComponent())
+                .listUsersActivityModule(new ListUsersActivityModule(this))
+                .build();
+
+        listUsersActivityComponent.inject(this);
     }
 
-    @Override
-    public App retrieveApplication() {
-        return (App) getApplication();
+    @OnItemClick(R.id.activity_list_users_data)
+    public void onUserClicked(int position) {
     }
 }

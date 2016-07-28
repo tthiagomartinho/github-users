@@ -6,6 +6,7 @@ import android.widget.ListView;
 import javax.inject.Inject;
 
 import br.com.martinho.githubusers.R;
+import br.com.martinho.githubusers.screen.adapters.ListUsersAdapter;
 import br.com.martinho.githubusers.screen.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,9 +33,16 @@ public class ListUsersActivity extends BaseActivity implements IListUsersActivit
                 .build();
 
         listUsersActivityComponent.inject(this);
+
+        listUsersActivityPresenter.loadUsers();
     }
 
     @OnItemClick(R.id.activity_list_users_data)
     public void onUserClicked(int position) {
+    }
+
+    @Override
+    public void onUsersLoaded(ListUsersAdapter listUsersAdapter) {
+        data.setAdapter(listUsersAdapter);
     }
 }

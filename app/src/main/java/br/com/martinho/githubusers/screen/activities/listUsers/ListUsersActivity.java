@@ -1,13 +1,16 @@
 package br.com.martinho.githubusers.screen.activities.listUsers;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import javax.inject.Inject;
 
 import br.com.martinho.githubusers.R;
-import br.com.martinho.githubusers.screen.adapters.ListUsersAdapter;
 import br.com.martinho.githubusers.screen.base.BaseActivity;
+import br.com.martinho.githubusers.util.listeners.EndlessScrollListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
@@ -18,7 +21,7 @@ public class ListUsersActivity extends BaseActivity implements IListUsersActivit
     IListUsersActivityPresenter listUsersActivityPresenter;
 
     @BindView(R.id.activity_list_users_data)
-    ListView data;
+    ListView usersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +37,28 @@ public class ListUsersActivity extends BaseActivity implements IListUsersActivit
 
         listUsersActivityComponent.inject(this);
 
+        setUsersListUp();
+
         listUsersActivityPresenter.loadUsers();
+    }
+
+    private void setUsersListUp() {
+        BaseAdapter baseAdapter = listUsersActivityPresenter.createAdapter();
+        this.usersList.setAdapter(baseAdapter);
+
+        this.usersList.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                return listUsersActivityPresenter.loadUsers();
+            }
+        });
     }
 
     @OnItemClick(R.id.activity_list_users_data)
     public void onUserClicked(int position) {
-    }
-
-    @Override
-    public void onUsersLoaded(ListUsersAdapter listUsersAdapter) {
-        data.setAdapter(listUsersAdapter);
+        String url = listUsersActivityPresenter.retrieveUserProfilePage(position);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 }

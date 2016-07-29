@@ -26,25 +26,13 @@ public class ListUsersAdapter extends BaseAdapter {
     private List<User> users;
     private LayoutInflater mInflater;
 
-    public ListUsersAdapter(Context context, List<User> users) {
+    public ListUsersAdapter(Context context) {
         this.context = context;
-        this.users = users;
         this.mInflater = LayoutInflater.from(context);
     }
 
-    @Override
-    public int getCount() {
-        return users.size();
-    }
-
-    @Override
-    public User getItem(int i) {
-        return users.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
+    public void setListData(List<User> users) {
+        this.users = users;
     }
 
     @Override
@@ -63,9 +51,24 @@ public class ListUsersAdapter extends BaseAdapter {
         User user = getItem(position);
 
         holder.name.setText(user.getLogin());
-        Picasso.with(context).load(user.getAvatarUrl()).resize(100, 100).into(holder.picture);
+        Picasso.with(context).load(user.getAvatarUrl()).resize(40, 40).into(holder.picture);
 
         return convertView;
+    }
+
+    @Override
+    public int getCount() {
+        return users == null ? 0 : users.size();
+    }
+
+    @Override
+    public User getItem(int i) {
+        return users.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
     }
 
     static class ViewHolder {

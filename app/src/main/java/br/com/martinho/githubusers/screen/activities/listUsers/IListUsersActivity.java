@@ -13,6 +13,4 @@ public interface IListUsersActivity {
     App retrieveApplication();
 
     Context retrieveContext();
-
-    void onUsersLoaded(ListUsersAdapter listUsersAdapter);
 }

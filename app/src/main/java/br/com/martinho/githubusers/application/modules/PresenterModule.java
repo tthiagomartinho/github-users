@@ -1,7 +1,5 @@
 package br.com.martinho.githubusers.application.modules;
 
-import android.support.design.BuildConfig;
-
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
+import br.com.martinho.githubusers.BuildConfig;
 import br.com.martinho.githubusers.network.API;
 import dagger.Module;
 import dagger.Provides;

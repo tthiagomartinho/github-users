@@ -61,4 +61,8 @@ public class ListUsersActivity extends BaseActivity implements IListUsersActivit
         intent.setData(Uri.parse(url));
         startActivity(intent);
     }
+
+    public ListView getUsersList() {
+        return usersList;
+    }
 }

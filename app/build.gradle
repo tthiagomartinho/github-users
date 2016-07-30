@@ -49,4 +49,6 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava', version: '2.1.0'
+    testCompile "org.robolectric:robolectric:3.1.2"
+    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
 }

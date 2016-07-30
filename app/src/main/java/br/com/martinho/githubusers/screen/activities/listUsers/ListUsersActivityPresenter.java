@@ -46,16 +46,14 @@ public class ListUsersActivityPresenter extends BaseActivityPresenter implements
 
     @Override
     public boolean loadUsers() {
-        boolean areUsersBeingLoaded = false;
         if (this.canRequestMoreUsers) {
             this.canRequestMoreUsers = false;
-            areUsersBeingLoaded = true;
             this.subscribe = this.api.retrieveUsers(sinceGitHubUsers)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::onUsersLoaded, this::onError);
         }
-        return areUsersBeingLoaded;
+        return !canRequestMoreUsers;
     }
 
     private void onUsersLoaded(Response<List<User>> response) {

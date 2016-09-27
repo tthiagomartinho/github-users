@@ -1,10 +1,7 @@
 package br.com.martinho.githubusers.screen.activities.listUsers;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import org.junit.Before;
@@ -12,17 +9,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowActivity;
 
 import br.com.martinho.githubusers.BuildConfig;
 import br.com.martinho.githubusers.R;
-import br.com.martinho.githubusers.screen.adapters.ListUsersAdapter;
+import br.com.martinho.githubusers.ui.listUsers.ListUsersActivity;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Thiago on 30/07/2016.
@@ -47,29 +40,5 @@ public class ListUsersActivityTest {
 
         ListView usersList = (ListView) activity.findViewById(R.id.activity_list_users_data);
         assertNotNull("ListView could not be found", usersList);
-    }
-
-    @Test
-    public void checkAdapter() throws Exception {
-        BaseAdapter adapterExpected = new ListUsersAdapter(activity);
-        assertNotSame(activity.getUsersList().getAdapter(), adapterExpected);
-    }
-
-    @Test
-    public void selectUserAndStartBrowserActivity() throws Exception {
-        Thread.sleep(3000); //wait for the api to respond
-
-        Intent expectedIntent = new Intent(Intent.ACTION_VIEW);
-
-        ListView usersList = (ListView) activity.findViewById(R.id.activity_list_users_data);
-        usersList.performItemClick(usersList.getAdapter().getView(0, null, null), 0, usersList.getAdapter().getItemId(0));
-
-        ShadowActivity shadowMainActivity = Shadows.shadowOf(activity);
-        Intent actualIntent = shadowMainActivity.getNextStartedActivity();
-
-        Uri uri = actualIntent.getData();
-        expectedIntent.setData(uri); //since the data comes from the API, we have to set the URI to the expected intent.
-
-        assertTrue(actualIntent.filterEquals(expectedIntent));
     }
 }

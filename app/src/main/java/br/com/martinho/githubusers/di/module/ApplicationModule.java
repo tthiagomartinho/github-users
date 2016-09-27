@@ -1,4 +1,4 @@
-package br.com.martinho.githubusers.application.modules;
+package br.com.martinho.githubusers.di.module;
 
 import android.app.Application;
 

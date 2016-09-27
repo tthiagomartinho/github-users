@@ -1,4 +1,4 @@
-package br.com.martinho.githubusers.application.modules;
+package br.com.martinho.githubusers.di.module;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 
 import br.com.martinho.githubusers.BuildConfig;
-import br.com.martinho.githubusers.network.API;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -19,16 +18,11 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Thiago Martinho on 27/07/2016.
+ * Created by Thiago on 21/09/2016.
  */
 
 @Module
-public class PresenterModule {
-
-    public static String mBaseUrl = "https://api.github.com/";
-
-    public PresenterModule() {
-    }
+public class NetworkModule {
 
     @Provides
     @Singleton
@@ -43,7 +37,7 @@ public class PresenterModule {
     @Singleton
     Retrofit provideRetrofit(OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory) {
         return new Retrofit.Builder()
-                .baseUrl(mBaseUrl)
+                .baseUrl(BuildConfig.endpoint)
                 .client(okHttpClient)
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -65,11 +59,5 @@ public class PresenterModule {
         }
 
         return builder.build();
-    }
-
-    @Provides
-    @Singleton
-    API provideAPI(Retrofit retrofit) {
-        return retrofit.create(API.class);
     }
 }

@@ -1,4 +1,4 @@
-package br.com.martinho.githubusers.network;
+package br.com.martinho.githubusers.data.service;
 
 import java.util.List;
 

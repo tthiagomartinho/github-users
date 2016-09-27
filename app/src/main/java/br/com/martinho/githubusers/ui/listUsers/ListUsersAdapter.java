@@ -1,6 +1,5 @@
-package br.com.martinho.githubusers.screen.adapters;
+package br.com.martinho.githubusers.ui.listUsers;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,40 +19,37 @@ import butterknife.ButterKnife;
 /**
  * Created by Thiago on 27/07/2016.
  */
-public class ListUsersAdapter extends BaseAdapter {
+class ListUsersAdapter extends BaseAdapter {
 
-    private Context context;
     private List<User> users;
-    private LayoutInflater mInflater;
 
-    public ListUsersAdapter(Context context) {
-        this.context = context;
-        this.mInflater = LayoutInflater.from(context);
-    }
-
-    public void setListData(List<User> users) {
+    ListUsersAdapter(List<User> users) {
         this.users = users;
     }
 
+    void addMoreData(List<User> users) {
+        this.users.addAll(users);
+    }
+
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup parent) {
 
         ViewHolder holder;
 
-        if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.adapter_list_users, null);
-            holder = new ViewHolder(convertView);
-            convertView.setTag(holder);
+        if (view == null) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_list_users, null);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (ViewHolder) view.getTag();
         }
 
         User user = getItem(position);
 
         holder.name.setText(user.getLogin());
-        Picasso.with(context).load(user.getAvatarUrl()).resize(40, 40).into(holder.picture);
+        Picasso.with(view.getContext()).load(user.getAvatarUrl()).resize(40, 40).into(holder.picture);
 
-        return convertView;
+        return view;
     }
 
     @Override
